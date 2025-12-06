@@ -3,7 +3,12 @@ import { Code, Mail, Github, Linkedin, ExternalLink, ChevronDown, Menu, X } from
 
 export default function Portfolio() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
+
+  // Smooth scroll fonksiyonu
+  const scrollToSection = (sectionId) => {
+    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+    setMobileMenuOpen(false);
+  };
 
   const projects = [
     {
@@ -58,13 +63,11 @@ export default function Portfolio() {
             
             {/* Desktop Menu */}
             <div className="hidden md:flex space-x-8">
-              {['Home', 'About', 'Projects', 'Skills', 'Contact'].map((item) => (
+              {['home', 'about', 'projects', 'skills', 'contact'].map((item) => (
                 <button
                   key={item}
-                  onClick={() => setActiveSection(item.toLowerCase())}
-                  className={`hover:text-cyan-400 transition-colors ${
-                    activeSection === item.toLowerCase() ? 'text-cyan-400' : 'text-gray-300'
-                  }`}
+                  onClick={() => scrollToSection(item)}
+                  className="hover:text-cyan-400 transition-colors text-gray-300 capitalize"
                 >
                   {item}
                 </button>
@@ -76,21 +79,18 @@ export default function Portfolio() {
               className="md:hidden"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              {mobileMenuOpen ? <X /> : <Menu />}
+              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
 
           {/* Mobile Menu */}
           {mobileMenuOpen && (
-            <div className="md:hidden py-4 space-y-2">
-              {['Home', 'About', 'Projects', 'Skills', 'Contact'].map((item) => (
+            <div className="md:hidden py-4 space-y-2 bg-gray-900">
+              {['home', 'about', 'projects', 'skills', 'contact'].map((item) => (
                 <button
                   key={item}
-                  onClick={() => {
-                    setActiveSection(item.toLowerCase());
-                    setMobileMenuOpen(false);
-                  }}
-                  className="block w-full text-left px-4 py-2 hover:bg-gray-800 rounded transition-colors"
+                  onClick={() => scrollToSection(item)}
+                  className="block w-full text-left px-4 py-2 hover:bg-gray-800 rounded transition-colors capitalize"
                 >
                   {item}
                 </button>
@@ -101,7 +101,7 @@ export default function Portfolio() {
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-4">
+      <section id="home" className="pt-32 pb-20 px-4">
         <div className="max-w-7xl mx-auto text-center">
           <div className="mb-8 inline-block">
             <div className="w-32 h-32 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 p-1 mx-auto">
@@ -118,37 +118,24 @@ export default function Portfolio() {
             Building AI-Powered Web Solutions
           </p>
           <p className="text-lg text-gray-500 mb-8">
-            📍 Helsinki, Finland | 🚀 Open to Opportunities
+            Tampere, Finland | Open to Opportunities
           </p>
 
           <div className="flex justify-center space-x-4 mb-12">
-            <a 
-              href="https://github.com/kapucuonur" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 bg-gray-800 rounded-full hover:bg-cyan-500 transition-colors"
-            >
+            <a href="https://github.com/kapucuonur" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-800 rounded-full hover:bg-cyan-500 transition-colors">
               <Github className="w-6 h-6" />
             </a>
-            <a 
-              href="https://www.linkedin.com/in/onur-kapucu/" 
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 bg-gray-800 rounded-full hover:bg-cyan-500 transition-colors"
-            >
+            <a href="https://www.linkedin.com/in/onur-kapucu/" target="_blank" rel="noopener noreferrer" className="p-3 bg-gray-800 rounded-full hover:bg-cyan-500 transition-colors">
               <Linkedin className="w-6 h-6" />
             </a>
-            <a 
-              href="mailto:kapucuonur@hotmail.com"
-              className="p-3 bg-gray-800 rounded-full hover:bg-cyan-500 transition-colors"
-            >
+            <a href="mailto:kapucuonur@hotmail.com" className="p-3 bg-gray-800 rounded-full hover:bg-cyan-500 transition-colors">
               <Mail className="w-6 h-6" />
             </a>
           </div>
 
-          <button className="bg-gradient-to-r from-cyan-500 to-blue-500 px-8 py-3 rounded-full text-lg font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all">
+          <a href="/resume.pdf" download className="bg-gradient-to-r from-cyan-500 to-blue-500 px-8 py-3 rounded-full text-lg font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all">
             Download Resume
-          </button>
+          </a>
 
           <div className="mt-16 animate-bounce">
             <ChevronDown className="w-8 h-8 mx-auto text-cyan-400" />
@@ -157,7 +144,7 @@ export default function Portfolio() {
       </section>
 
       {/* About Section */}
-      <section className="py-20 px-4 bg-gray-800/30">
+      <section id="about" className="py-20 px-4 bg-gray-800/30">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl font-bold mb-12 text-center">
             <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
@@ -192,15 +179,15 @@ export default function Portfolio() {
             </div>
             <div className="space-y-4">
               <div className="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-cyan-500 transition-colors">
-                <h3 className="text-xl font-semibold mb-2 text-cyan-400">🎯 Focus Areas</h3>
+                <h3 className="text-xl font-semibold mb-2 text-cyan-400">Focus Areas</h3>
                 <p className="text-gray-400">AI Integration, Web Apps, E-commerce, Real-time Systems</p>
               </div>
               <div className="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-cyan-500 transition-colors">
-                <h3 className="text-xl font-semibold mb-2 text-cyan-400">🌱 Currently Learning</h3>
+                <h3 className="text-xl font-semibold mb-2 text-cyan-400">Currently Learning</h3>
                 <p className="text-gray-400">Advanced ML, Cloud Architecture, Web3 Technologies</p>
               </div>
               <div className="bg-gray-800 p-6 rounded-lg border border-gray-700 hover:border-cyan-500 transition-colors">
-                <h3 className="text-xl font-semibold mb-2 text-cyan-400">💼 Work Preferences</h3>
+                <h3 className="text-xl font-semibold mb-2 text-cyan-400">Work Preferences</h3>
                 <p className="text-gray-400">Remote, Hybrid in Helsinki, or Relocation within EU</p>
               </div>
             </div>
@@ -209,7 +196,7 @@ export default function Portfolio() {
       </section>
 
       {/* Projects Section */}
-      <section className="py-20 px-4">
+      <section id="projects" className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl font-bold mb-12 text-center">
             <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
@@ -218,10 +205,7 @@ export default function Portfolio() {
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
-              <div 
-                key={index}
-                className="bg-gray-800 rounded-xl overflow-hidden hover:transform hover:scale-105 transition-all duration-300 border border-gray-700 hover:border-cyan-500"
-              >
+              <div key={index} className="bg-gray-800 rounded-xl overflow-hidden hover:transform hover:scale-105 transition-all duration-300 border border-gray-700 hover:border-cyan-500">
                 <div className={`h-2 bg-gradient-to-r ${project.color}`}></div>
                 <div className="p-6">
                   <h3 className="text-2xl font-bold mb-3">{project.title}</h3>
@@ -244,21 +228,11 @@ export default function Portfolio() {
                   </div>
 
                   <div className="flex space-x-4">
-                    <a 
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center space-x-2 text-cyan-400 hover:text-cyan-300 transition-colors"
-                    >
+                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 text-cyan-400 hover:text-cyan-300 transition-colors">
                       <ExternalLink className="w-4 h-4" />
                       <span>Live Demo</span>
                     </a>
-                    <a 
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center space-x-2 text-gray-400 hover:text-gray-300 transition-colors"
-                    >
+                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-2 text-gray-400 hover:text-gray-300 transition-colors">
                       <Github className="w-4 h-4" />
                       <span>Code</span>
                     </a>
@@ -268,12 +242,7 @@ export default function Portfolio() {
             ))}
           </div>
           <div className="text-center mt-12">
-            <a 
-              href="https://github.com/kapucuonur"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block bg-gray-800 px-8 py-3 rounded-full hover:bg-gray-700 transition-colors"
-            >
+            <a href="https://github.com/kapucuonur" target="_blank" rel="noopener noreferrer" className="inline-block bg-gray-800 px-8 py-3 rounded-full hover:bg-gray-700 transition-colors">
               View All Projects on GitHub →
             </a>
           </div>
@@ -281,7 +250,7 @@ export default function Portfolio() {
       </section>
 
       {/* Skills Section */}
-      <section className="py-20 px-4 bg-gray-800/30">
+      <section id="skills" className="py-20 px-4 bg-gray-800/30">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl font-bold mb-12 text-center">
             <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
@@ -290,17 +259,11 @@ export default function Portfolio() {
           </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {Object.entries(skills).map(([category, items], index) => (
-              <div 
-                key={index}
-                className="bg-gray-800 p-6 rounded-xl border border-gray-700 hover:border-cyan-500 transition-colors"
-              >
+              <div key={index} className="bg-gray-800 p-6 rounded-xl border border-gray-700 hover:border-cyan-500 transition-colors">
                 <h3 className="text-xl font-bold mb-4 text-cyan-400">{category}</h3>
                 <div className="flex flex-wrap gap-2">
                   {items.map((skill, i) => (
-                    <span 
-                      key={i}
-                      className="bg-gray-900 px-4 py-2 rounded-lg text-sm hover:bg-cyan-500 hover:text-gray-900 transition-colors cursor-default"
-                    >
+                    <span key={i} className="bg-gray-900 px-4 py-2 rounded-lg text-sm hover:bg-cyan-500 hover:text-gray-900 transition-colors cursor-default">
                       {skill}
                     </span>
                   ))}
@@ -312,7 +275,7 @@ export default function Portfolio() {
       </section>
 
       {/* Contact Section */}
-      <section className="py-20 px-4">
+      <section id="contact" className="py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl font-bold mb-6">
             <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
@@ -327,24 +290,21 @@ export default function Portfolio() {
             <div className="bg-gray-800 p-6 rounded-xl">
               <Mail className="w-12 h-12 mx-auto mb-4 text-cyan-400" />
               <h3 className="font-semibold mb-2">Email</h3>
-              <p className="text-gray-400 text-sm">your.email@example.com</p>
+              <a href="mailto:kapucuonur@hotmail.com" className="text-gray-400 text-sm hover:text-cyan-400">kapucuonur@hotmail.com</a>
             </div>
             <div className="bg-gray-800 p-6 rounded-xl">
               <Github className="w-12 h-12 mx-auto mb-4 text-cyan-400" />
               <h3 className="font-semibold mb-2">GitHub</h3>
-              <p className="text-gray-400 text-sm">@kapucuonur</p>
+              <a href="https://github.com/kapucuonur" target="_blank" rel="noopener noreferrer" className="text-gray-400 text-sm hover:text-cyan-400">@kapucuonur</a>
             </div>
             <div className="bg-gray-800 p-6 rounded-xl">
               <Linkedin className="w-12 h-12 mx-auto mb-4 text-cyan-400" />
               <h3 className="font-semibold mb-2">LinkedIn</h3>
-              <p className="text-gray-400 text-sm">onur-kapucu</p>
+              <a href="https://www.linkedin.com/in/onur-kapucu/" target="_blank" rel="noopener noreferrer" className="text-gray-400 text-sm hover:text-cyan-400">onur-kapucu</a>
             </div>
           </div>
 
-          <a 
-            href="mailto:your.email@example.com"
-            className="inline-block bg-gradient-to-r from-cyan-500 to-blue-500 px-12 py-4 rounded-full text-lg font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all"
-          >
+          <a href="mailto:kapucuonur@hotmail.com" className="inline-block bg-gradient-to-r from-cyan-500 to-blue-500 px-12 py-4 rounded-full text-lg font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all">
             Get In Touch
           </a>
         </div>
@@ -354,13 +314,13 @@ export default function Portfolio() {
       <footer className="bg-gray-900 py-8 px-4 border-t border-gray-800">
         <div className="max-w-7xl mx-auto text-center">
           <p className="text-gray-400">
-            © 2025 Onur Kapucu. Built with React & Tailwind CSS
+            © 2025 Onur Kapucu. Built with React & Tailwind CSS 
           </p>
           <p className="text-gray-600 text-sm mt-2">
-            Made with ❤️ in Helsinki, Finland
+            Made with love ❤️ in Tampere, Finland 📍
           </p>
         </div>
       </footer>
     </div>
   );
-}
+} 
