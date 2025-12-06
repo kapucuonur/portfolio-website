@@ -3,7 +3,6 @@ import { Code, Mail, Github, Linkedin, ExternalLink, ChevronDown, Menu, X } from
 
 export default function Portfolio() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  // Navigasyon scroll ile değişmeyeceği için, sadece menü etkileşimi için kullanılır
   const [activeSection, setActiveSection] = useState('home');
 
   const projects = [
@@ -43,8 +42,6 @@ export default function Portfolio() {
     "AI/ML": ["TensorFlow", "Google AI", "OpenAI", "Groq"],
     "DevOps": ["Docker", "Git", "AWS", "Netlify", "Vercel"]
   };
-  
-  const EMAIL_ADDRESS = "kapucuonur@hotmail.com";
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white">
@@ -62,16 +59,15 @@ export default function Portfolio() {
             {/* Desktop Menu */}
             <div className="hidden md:flex space-x-8">
               {['Home', 'About', 'Projects', 'Skills', 'Contact'].map((item) => (
-                <a // <a> etiketi kullanıldı
+                <button
                   key={item}
-                  href={`#${item.toLowerCase()}`}
                   onClick={() => setActiveSection(item.toLowerCase())}
                   className={`hover:text-cyan-400 transition-colors ${
                     activeSection === item.toLowerCase() ? 'text-cyan-400' : 'text-gray-300'
                   }`}
                 >
                   {item}
-                </a>
+                </button>
               ))}
             </div>
 
@@ -79,7 +75,6 @@ export default function Portfolio() {
             <button 
               className="md:hidden"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Toggle mobile menu"
             >
               {mobileMenuOpen ? <X /> : <Menu />}
             </button>
@@ -89,9 +84,8 @@ export default function Portfolio() {
           {mobileMenuOpen && (
             <div className="md:hidden py-4 space-y-2">
               {['Home', 'About', 'Projects', 'Skills', 'Contact'].map((item) => (
-                <a // <a> etiketi kullanıldı
+                <button
                   key={item}
-                  href={`#${item.toLowerCase()}`}
                   onClick={() => {
                     setActiveSection(item.toLowerCase());
                     setMobileMenuOpen(false);
@@ -99,7 +93,7 @@ export default function Portfolio() {
                   className="block w-full text-left px-4 py-2 hover:bg-gray-800 rounded transition-colors"
                 >
                   {item}
-              </a>
+                </button>
               ))}
             </div>
           )}
@@ -107,7 +101,7 @@ export default function Portfolio() {
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="pt-32 pb-20 px-4"> {/* ID eklendi */}
+      <section className="pt-32 pb-20 px-4">
         <div className="max-w-7xl mx-auto text-center">
           <div className="mb-8 inline-block">
             <div className="w-32 h-32 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 p-1 mx-auto">
@@ -133,7 +127,6 @@ export default function Portfolio() {
               target="_blank"
               rel="noopener noreferrer"
               className="p-3 bg-gray-800 rounded-full hover:bg-cyan-500 transition-colors"
-              aria-label="GitHub Profile"
             >
               <Github className="w-6 h-6" />
             </a>
@@ -142,14 +135,12 @@ export default function Portfolio() {
               target="_blank"
               rel="noopener noreferrer"
               className="p-3 bg-gray-800 rounded-full hover:bg-cyan-500 transition-colors"
-              aria-label="LinkedIn Profile"
             >
               <Linkedin className="w-6 h-6" />
             </a>
             <a 
-              href={`mailto:${EMAIL_ADDRESS}`} // E-posta güncellendi
+              href="mailto:kapucuonur@hotmail.com"
               className="p-3 bg-gray-800 rounded-full hover:bg-cyan-500 transition-colors"
-              aria-label="Send Email"
             >
               <Mail className="w-6 h-6" />
             </a>
@@ -159,14 +150,14 @@ export default function Portfolio() {
             Download Resume
           </button>
 
-          <a href="#about" className="mt-16 animate-bounce inline-block"> {/* About'a link eklendi */}
+          <div className="mt-16 animate-bounce">
             <ChevronDown className="w-8 h-8 mx-auto text-cyan-400" />
-          </a>
+          </div>
         </div>
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 px-4 bg-gray-800/30"> {/* ID eklendi */}
+      <section className="py-20 px-4 bg-gray-800/30">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl font-bold mb-12 text-center">
             <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
@@ -218,7 +209,7 @@ export default function Portfolio() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-20 px-4"> {/* ID eklendi */}
+      <section className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl font-bold mb-12 text-center">
             <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
@@ -290,7 +281,7 @@ export default function Portfolio() {
       </section>
 
       {/* Skills Section */}
-      <section id="skills" className="py-20 px-4 bg-gray-800/30"> {/* ID eklendi */}
+      <section className="py-20 px-4 bg-gray-800/30">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl font-bold mb-12 text-center">
             <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
@@ -321,7 +312,7 @@ export default function Portfolio() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20 px-4"> {/* ID eklendi */}
+      <section className="py-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-4xl font-bold mb-6">
             <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
@@ -336,7 +327,7 @@ export default function Portfolio() {
             <div className="bg-gray-800 p-6 rounded-xl">
               <Mail className="w-12 h-12 mx-auto mb-4 text-cyan-400" />
               <h3 className="font-semibold mb-2">Email</h3>
-              <p className="text-gray-400 text-sm">{EMAIL_ADDRESS}</p>
+              <p className="text-gray-400 text-sm">your.email@example.com</p>
             </div>
             <div className="bg-gray-800 p-6 rounded-xl">
               <Github className="w-12 h-12 mx-auto mb-4 text-cyan-400" />
@@ -351,7 +342,7 @@ export default function Portfolio() {
           </div>
 
           <a 
-            href={`mailto:${EMAIL_ADDRESS}`} // E-posta güncellendi
+            href="mailto:your.email@example.com"
             className="inline-block bg-gradient-to-r from-cyan-500 to-blue-500 px-12 py-4 rounded-full text-lg font-semibold hover:shadow-lg hover:shadow-cyan-500/50 transition-all"
           >
             Get In Touch
